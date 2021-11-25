@@ -25,9 +25,10 @@ def total_cars_seen(traffic_data):
 	return sum(cars)
 
 def cars_by_day(traffic_data):
-	""""""
+	"""Returns dictionary, Key: day, Value: number of cars"""
 	day_car = {}
 	for data in traffic_data:
+		# day part is before 'T'
 		day = data[0].split('T')[0]
 		cars = data[1]
 		if day in day_car:
@@ -37,13 +38,13 @@ def cars_by_day(traffic_data):
 	return day_car
 
 
-def half_hour_data(traffic_data, top=3):
+def top_half_hours(traffic_data, top=3):
 	"""sorts [traffic_data] reversed, returns top value, top defaults to 3"""
 	sorted_traffic_data = sorted(traffic_data, key=lambda item: item[1], reverse=True)
 	return sorted_traffic_data[:top]
 
 
-def periodic_least_data(traffic_data, period=3):
+def period_data(traffic_data, period=3):
 	""""""
 	# list to hold the period data: dictionary
 	group_by_period= []
