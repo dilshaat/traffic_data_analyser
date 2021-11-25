@@ -1,4 +1,3 @@
-
 def read_traffic_data(file_path):
 	"""Returns List of Tuples. Tuples are (date, number) pairs
 	"""
@@ -18,32 +17,43 @@ def read_traffic_data(file_path):
 	## - file is empty file
 	return traffic_data
 
+
 def total_cars_seen(traffic_data):
 	"""Returns the sum of all cars from [traffic_data]"""
-	# traffic_data is assumed to be list of tuples, each tuple with 2 items
 	# second item of each [traffic_data] item is the number of car
 	cars = [item[1] for item in traffic_data]
 	return sum(cars)
 
+def cars_by_day(traffic_data):
+	""""""
+	day_car = {}
+	for data in traffic_data:
+		day = data[0].split('T')[0]
+		cars = data[1]
+		if day in day_car:
+			day_car[day] += cars
+		else:
+			day_car[day] = cars
+	return day_car
+
+
 def half_hour_data(traffic_data, top=3):
 	"""sorts [traffic_data] reversed, returns top value, top defaults to 3"""
-	# traffic_data is assumed to be list of tuples, each tuple with 2 items
 	sorted_traffic_data = sorted(traffic_data, key=lambda item: item[1], reverse=True)
 	return sorted_traffic_data[:top]
+
 
 def periodic_least_data(traffic_data, period=3):
 	""""""
 	# list to hold the period data: dictionary
 	group_by_period= []
-	# traffic_data is assumed to be list of tuples, each tuple with 2 items
-	# loop through by index
 	for index in range(len(traffic_data)):
 		# every loop gets the slice of next 3(period) items
-		# convert the slice to dictionary
 		group_by_three = dict(traffic_data[index:index+period])
 		# only take if the slice fit in the period set
 		if (len(group_by_three) == period):
 			group_by_period.append(group_by_three)
-
+	group_by_summed = []
 	for i in group_by_period:
-		print(tuple(i.keys()), sum(i.values()))
+		group_by_summed.append((tuple(i.keys()), sum(i.values())))
+	return sorted(group_by_summed, key=lambda item: item[1])
