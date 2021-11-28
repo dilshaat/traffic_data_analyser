@@ -45,7 +45,7 @@ def top_half_hours(traffic_data, top=3):
 
 
 def period_data(traffic_data, period=3):
-    """"""
+    """returns sum of cars seen in a period of 1.5 hours(by default)"""
     # list to hold the period data: dictionary
     group_by_period= []
     for index in range(len(traffic_data)):
